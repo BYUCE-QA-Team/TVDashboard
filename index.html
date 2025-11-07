@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Office Dashboard Display</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%; width: 100%;
+      background-color: black;
+      overflow: hidden;
+    }
+    .slide, iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: none;
+    }
+    #fullscreen-btn {
+      position: fixed;
+      top: 10px; right: 10px;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: 1px solid white;
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 9999;
+    }
+    #fullscreen-btn:hover {
+      background: rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div id="fullscreen-btn">⛶ Fullscreen</div>
+  <div id="container"></div>
+
+  <script src="config.js"></script>
+  <script>
+    const { slidesFolder, slides, powerBiEmbedUrl, slideDuration } = window.dashboardConfig;
+    const container = document.getElementById('container');
+
+    // Build slide sequence: image → Power BI → image → Power BI → ...
+    const sequence = [];
+    slides.forEach(src => {
+      sequence.push({ type: 'image', src: `${slidesFolder}/${src}` });
+      sequence.push({ type: 'powerbi', src: powerBiEmbedUrl });
+    });
+
+    // Create DOM elements for all slides
+    sequence.forEach(item => {
+      let el;
+      if (item.type === 'image') {
+        el = document.createElement('img');
+        el.src = item.src;
+      } else {
+        el = document.createElement('iframe');
+        el.src = item.src;
+        el.allowFullscreen = true;
+      }
+      el.className = 'slide';
+      container.appendChild(el);
+    });
+
+    const allSlides = Array.from(document.querySelectorAll('.slide'));
+    let i = 0;
+
+    function showNext() {
+      allSlides.forEach(s => (s.style.display = 'none'));
+      allSlides[i].style.display = 'block';
+      i = (i + 1) % allSlides.length;
+    }
+
+    showNext();
+    setInterval(showNext, slideDuration);
+
+    // Fullscreen button
+    document.getElementById('fullscreen-btn').addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    });
+  </script>
+</body>
+</html>
