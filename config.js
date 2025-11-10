@@ -6,8 +6,20 @@ window.dashboardConfig = {
   // List of image filenames (relative to slidesFolder)
   slides: [
     "slide1.png",
-    "slide2.jpg",
-    "slide3.jpg"
+    "slide2.png",
+    "slide3.png",
+    "slide4.png",
+    "slide5.png",
+    "slide6.png",
+    "slide7.png",
+    "slide8.png",
+    "slide9.png",
+    "slide10.png",
+    "slide11.png",
+    "slide12.png",
+    "slide13.png",
+    "slide14.png",
+    "slide15.png",
   ],
 
   // Power BI report embed URL
@@ -16,3 +28,4 @@ window.dashboardConfig = {
   // Duration each slide (and dashboard) is shown in milliseconds
   slideDuration: 5000 // 15 seconds
 };
+
