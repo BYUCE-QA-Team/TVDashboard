@@ -19,7 +19,7 @@ window.dashboardConfig = {
     "slide12.png",
     "slide13.png",
     "slide14.png",
-    "slide15.png",
+    "slide15.png"
   ],
 
   // Power BI report embed URL
@@ -28,4 +28,5 @@ window.dashboardConfig = {
   // Duration each slide (and dashboard) is shown in milliseconds
   slideDuration: 5000 // 15 seconds
 };
+
 
