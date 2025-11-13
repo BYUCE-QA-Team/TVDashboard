@@ -45,41 +45,38 @@
     const { slidesFolder, slides, powerBiEmbedUrl, slideDuration } = window.dashboardConfig;
     const container = document.getElementById('container');
 
-    // Build slide sequence: image → Power BI → image → Power BI → ...
-    const sequence = [];
-    slides.forEach(src => {
-      sequence.push({ type: 'image', src: `${slidesFolder}/${src}` });
-      sequence.push({ type: 'powerbi', src: powerBiEmbedUrl });
+    // === Create Power BI iframe once ===
+    const powerBiFrame = document.createElement('iframe');
+    powerBiFrame.src = powerBiEmbedUrl;
+    powerBiFrame.className = 'slide';
+    powerBiFrame.allowFullscreen = true;
+    container.appendChild(powerBiFrame);
+
+    // === Create image slides ===
+    const imageSlides = slides.map(src => {
+      const img = document.createElement('img');
+      img.src = `${slidesFolder}/${src}`;
+      img.className = 'slide';
+      container.appendChild(img);
+      return img;
     });
 
-    // Create DOM elements for all slides
-    sequence.forEach(item => {
-      let el;
-      if (item.type === 'image') {
-        el = document.createElement('img');
-        el.src = item.src;
-      } else {
-        el = document.createElement('iframe');
-        el.src = item.src;
-        el.allowFullscreen = true;
-      }
-      el.className = 'slide';
-      container.appendChild(el);
-    });
-
-    const allSlides = Array.from(document.querySelectorAll('.slide'));
+    // === Build rotation sequence ===
+    // Example: [slide1, slide2, slide3, ..., powerBI]
+    const sequence = [...imageSlides, powerBiFrame];
     let i = 0;
 
     function showNext() {
-      allSlides.forEach(s => (s.style.display = 'none'));
-      allSlides[i].style.display = 'block';
-      i = (i + 1) % allSlides.length;
+      sequence.forEach(s => (s.style.display = 'none'));
+      sequence[i].style.display = 'block';
+      i = (i + 1) % sequence.length;
     }
 
+    // Initial display
     showNext();
     setInterval(showNext, slideDuration);
 
-    // Fullscreen button
+    // === Fullscreen button ===
     document.getElementById('fullscreen-btn').addEventListener('click', () => {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
