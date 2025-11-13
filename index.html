@@ -61,9 +61,15 @@
       return img;
     });
 
-    // === Build rotation sequence ===
-    // Example: [slide1, slide2, slide3, ..., powerBI]
-    const sequence = [...imageSlides, powerBiFrame];
+    // === Build rotation sequence with Power BI between slides ===
+    let sequence = [];
+    imageSlides.forEach((img, index) => {
+      sequence.push(img);
+      // Add Power BI after each slide except the last one
+      if (index < imageSlides.length - 1) {
+        sequence.push(powerBiFrame);
+      }
+    });
     let i = 0;
 
     function showNext() {
@@ -87,3 +93,4 @@
   </script>
 </body>
 </html>
+
