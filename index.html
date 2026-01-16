@@ -4,42 +4,12 @@
   <meta charset="UTF-8" />
   <title>Office Dashboard Display</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    html, body {
-      margin: 0; padding: 0;
-      height: 100%; width: 100%;
-      background-color: black;
-      overflow: hidden;
-    }
-    .slide, iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: none;
-    }
-    #fullscreen-btn {
-      position: fixed;
-      top: 10px; right: 10px;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: 1px solid white;
-      border-radius: 4px;
-      padding: 5px 10px;
-      cursor: pointer;
-      font-size: 14px;
-      z-index: 9999;
-    }
-    #fullscreen-btn:hover {
-      background: rgba(255,255,255,0.2);
-    }
-  </style>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+  <div id="center"></div>
   <div id="fullscreen-btn">⛶ Fullscreen</div>
   <div id="container"></div>
-
   <script src="config.js"></script>
   <script>
     const { slidesFolder, slides, powerBiEmbedUrl, slideDuration } = window.dashboardConfig;
@@ -90,6 +60,11 @@
         document.exitFullscreen();
       }
     });
+    
+    document.onclick = function() {
+      document.documentElement.requestFullscreen();
+    }
+
   </script>
 </body>
 </html>
