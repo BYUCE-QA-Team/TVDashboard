@@ -19,7 +19,8 @@ window.dashboardConfig = {
     "slide12.png",
     "slide13.png",
     "slide14.png",
-    "slide15.png"
+    "slide15.png",
+    "slide16.png"
   ],
 
   // Power BI report embed URL
