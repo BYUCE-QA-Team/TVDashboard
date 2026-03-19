@@ -9,6 +9,7 @@
 <body>
   <div id="center"></div>
   <div id="fullscreen-btn">⛶ Fullscreen</div>
+  <img src="./mac.gif" alt="" id="mac">
   <div id="container"></div>
   <script src="config.js"></script>
   <script>
@@ -44,13 +45,25 @@
 
     function showNext() {
       sequence.forEach(s => (s.style.display = 'none'));
+      if (i != 28) {
+        document.getElementById("mac").style.display = 'none';
+      }
+      else {
+        document.getElementById("mac").style.display = 'block';
+      }
       sequence[i].style.display = 'block';
       i = (i + 1) % sequence.length;
+    }
+
+    function reload() {
+      window.location.reload();
+      setTimeout(reload, 1800000);
     }
 
     // Initial display
     showNext();
     setInterval(showNext, slideDuration);
+    setTimeout(reload, 1800000);
 
     // === Fullscreen button ===
     document.getElementById('fullscreen-btn').addEventListener('click', () => {
