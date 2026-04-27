@@ -28,6 +28,7 @@
       const img = document.createElement('img');
       img.src = `${slidesFolder}/${src}`;
       img.className = 'slide';
+      img.alt = src
       container.appendChild(img);
       return img;
     });
@@ -45,7 +46,9 @@
 
     function showNext() {
       sequence.forEach(s => (s.style.display = 'none'));
-      if (i != 30 && i != 28) {
+      // console.log(sequence[i].alt)
+      let name = sequence[i].alt;
+      if (name != 'lorelei.png' && name != 'jarret.png') {
         document.getElementById("mac").style.display = 'none';
       }
       else {
