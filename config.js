@@ -21,7 +21,7 @@ window.dashboardConfig = {
     'valentina.png',
     'lorelei.png',
     'ella.png',
-    'jarret.png',
+    // 'jarret.png',
   ],
 
   // Power BI report embed URL
